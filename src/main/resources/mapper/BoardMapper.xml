@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- xml 파일명은 인터페이스와 같아야 함 -->
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="org.example.legacy.mapper.BoardMapper"> <!-- 스프링이 이것을 참고하여 경로를 찾아감 -->
+
+    <select id="getLists" resultType="org.example.legacy.entity.Board">
+        SELECT *
+        FROM Board
+        ORDER BY idx DESC
+    </select>
+
+    <insert id="insertList" parameterType="org.example.legacy.entity.Board">
+        INSERT INTO Board
+            (title, content, indate, count)
+        values (#{title}, #{content}, #{indate}, #{count})
+    </insert>
+
+    <update id="updateList" parameterType="int">
+        UPDATE Board
+        SET
+        indate = #{indate}
+        <if test="title != null">
+            , title = #{title}
+        </if>
+        <if test="content != null">
+            , content = #{content}
+        </if>
+        <if test="count != null">
+            , count = #{count}
+        </if>
+        WHERE idx = #{idx}
+    </update>
+
+    <delete id="deleteList" parameterType="int">
+        DELETE FROM Board
+        WHERE idx = #{idx}
+    </delete>
+
+
+</mapper>
