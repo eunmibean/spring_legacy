@@ -8,7 +8,6 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.ArrayList;
 import java.util.List;
 
 @Controller
@@ -16,7 +15,6 @@ public class BoardController {
 
     @Autowired
     private BoardMapper boardMapper;
-
 
     @RequestMapping("/boardList.do")
     public String boardList2(Model model) {
@@ -48,10 +46,4 @@ public class BoardController {
         boardMapper.deleteList(idx);
         return ResponseEntity.ok().build();
     }
-
-
-
-
-
-
 }
