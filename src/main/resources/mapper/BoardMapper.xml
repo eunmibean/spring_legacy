@@ -15,7 +15,7 @@
         values (#{title}, #{content}, #{indate}, #{count})
     </insert>
 
-    <update id="updateList" parameterType="int">
+    <update id="updateList" parameterType="org.example.legacy.entity.Board">
         UPDATE Board
         SET
         indate = #{indate}

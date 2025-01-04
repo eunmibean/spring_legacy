@@ -9,6 +9,6 @@ import java.util.List;
 public interface BoardMapper {
     List<Board> getLists();
     void insertList(Board board);
-    void updateList(int idx);
+    void updateList(Board board);
     void deleteList(int idx);
 }

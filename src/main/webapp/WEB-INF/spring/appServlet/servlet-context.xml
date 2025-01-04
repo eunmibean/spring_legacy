@@ -19,5 +19,7 @@
         <beans:property name="suffix" value=".jsp"/>
     </beans:bean>
 
+    <!-- 특정 패키지 내의 클래스를 스캔하고 Annotation(@Component @Controller @Service @Repository)을 확인한 후 Bean 인스턴스로 생성한다.-->
     <context:component-scan base-package="org.example.legacy"/>
+
 </beans:beans>
