@@ -11,7 +11,7 @@
 </head>
 <body>
 
-<table border="1">
+<table id ="tableBody" style="border: 1px solid black;">
     <thead>
     <tr>
         <th>Index</th>
@@ -21,7 +21,7 @@
         <th>Count</th>
     </tr>
     </thead>
-    <tbody>
+    <tbody style="border: 1px solid black;">
     <c:forEach var="vo" items="${list}">
         <tr id="row-${vo.idx}">
             <td>${vo.idx}</td>
@@ -33,6 +33,7 @@
             <td> <button id="update" data-id="${vo.idx}">수정</button> </td>
             <td> <button id="complete" style="display: none;" data-id="${vo.idx}">완료</button> </td>
         </tr>
+        <input type="hidden" id="lastIdx" value="${vo.idx}">
     </c:forEach>
     </tbody>
 </table>
@@ -119,6 +120,55 @@
                 alert('수정을 실패하였습니다.');
             }
         });
+    });
+
+    //입력 버튼 클릭시
+    $(document).on("click", "#insert", function () {
+        console.log("insert clicked");
+        const newRow = `
+            <tr>
+                <td> </td>
+                <td><input type="text" name="title" placeholder="Enter title"></td>
+                <td><input type="text" name="content" placeholder="Enter content"></td>
+                <td><input type="text" name="indate"  placeholder="Enter content"></td>
+                <td><input type="number" name="count" value="0"></td>
+                <td>
+                    <button class="save">저장</button>
+                    <button class="cancel">취소</button>
+                </td>
+            </tr>
+        `;
+        $('#tableBody tbody').append(newRow);
+    });
+
+    //입력 저장 버튼 클릭
+    $(document).on("click", ".save", function () {
+
+        var jsonData = {};
+        const row = $(this).closest('tr');
+        jsonData.title = row.find('input[name="title"]').val();
+        jsonData.content = row.find('input[name="content"]').val();
+        jsonData.indate = row.find('input[name="indate"]').val();
+        jsonData.count = row.find('input[name="count"]').val();
+
+        console.log(jsonData);
+        $.ajax({
+            url: '/board',
+            method: 'POST',
+            data: JSON.stringify(jsonData),
+            content: 'application/json',
+            success: function (res) {
+                console.log(res);
+            }, error: function (res) {
+                alert("저장에 실패 했습니다.");
+            }
+        });
+    });
+
+    //저장 취소 버튼 클릭 시
+    $(document).on('click', '.cancel', function () {
+        console.log("cancel clicked")
+        $(this).closest('tr').remove();
     });
 </script>
 </html>

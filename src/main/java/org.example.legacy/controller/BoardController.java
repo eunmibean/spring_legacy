@@ -19,7 +19,6 @@ public class BoardController {
     @RequestMapping("/boardList.do")
     public String boardList2(Model model) {
 
-        System.out.println("boardList2.do 실행");
         List<Board> list = boardMapper.getLists();
         model.addAttribute("list", list);
 
@@ -28,7 +27,9 @@ public class BoardController {
 
     @ResponseBody
     @PostMapping("/board")
-    public ResponseEntity<Void> insertBoard(Board board) {
+    public ResponseEntity<Void> insertBoard(@RequestBody Board board) {
+        System.out.println("insertBoard");
+        System.out.println(board);
         boardMapper.insertList(board);
         return ResponseEntity.ok().build();
     }
