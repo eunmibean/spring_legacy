@@ -9,7 +9,6 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-import java.util.Map;
 
 @Controller
 public class BoardController {
@@ -37,11 +36,9 @@ public class BoardController {
     @ResponseBody
     @PutMapping(value = "/board/{idx}")
     public ResponseEntity<Void> updateList(@PathVariable("idx") int idx
-                                          ,@RequestBody Map<String, String> board
+                                          ,@RequestBody Board board
                                             ) {
-        System.out.println(board);
-        System.out.println("updateList called");
-        //boardMapper.updateList(board);
+        boardMapper.updateList(board);
         return ResponseEntity.ok().build();
     }
 

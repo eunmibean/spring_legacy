@@ -68,6 +68,7 @@
 
        row.find(".editable").each(function () {
           const field = $(this).data("field");
+          console.log(field);
           const value = $(this).text();
           $(this).html('<input type=text name='+field+' value='+value+' />');
        });
@@ -75,16 +76,25 @@
        row.find("#complete").show();
     });
 
+    // 수정 완료 버튼 클릭시
     $(document).on("click", "#complete", function () {
         const rowId = $(this).data("id");
         const row = $('#row-'+rowId);
 
         var jsonData = {idx: rowId};
-        jsonData.title = $('input').attr('name', 'title').val();
-        jsonData.content = $('input').attr('name', 'content').val();
-        jsonData.indate = $('input').attr('name', 'indate').val();
-        jsonData.count = $('input').attr('name', 'count').val();
-
+        row.find(".editable").each(function () {
+                var field = $(this).data("field");
+                const value = $('input[name="'+field+'"]').val();
+                if(field === 'title') {
+                    jsonData.title = value;
+                } else if (field === 'content') {
+                    jsonData.content = value;
+                } else if (field === 'indate') {
+                    jsonData.indate = value;
+                } else if (field === 'count') {
+                    jsonData.count = parseInt(value);
+                }
+            });
         console.log(jsonData);
         $.ajax({
             url: '/board/'+rowId,
@@ -93,10 +103,22 @@
             data: JSON.stringify(jsonData),
             success: function () {
                 alert('수정을 완료하였습니다.');
+
+                row.find(".editable").each(function () {
+                    var field = $(this).data("field");
+                    const value = $('input[name="'+field+'"]').val();
+                    $(this).html(value);
+                });
+
+
+                $('input').remove();
+                row.find("#update").show();
+                row.find("#complete").hide();
+
             }, error: function () {
                 alert('수정을 실패하였습니다.');
             }
         });
-    })
+    });
 </script>
 </html>
