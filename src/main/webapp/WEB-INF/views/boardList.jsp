@@ -155,10 +155,11 @@
         $.ajax({
             url: '/board',
             method: 'POST',
+            contentType: 'application/json',
             data: JSON.stringify(jsonData),
-            content: 'application/json',
             success: function (res) {
-                console.log(res);
+                alert("저장에 성공 했습니다.");
+                location.reload();
             }, error: function (res) {
                 alert("저장에 실패 했습니다.");
             }
