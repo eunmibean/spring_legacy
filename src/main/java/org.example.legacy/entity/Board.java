@@ -21,6 +21,17 @@ public class Board {
     private String indate;
     private int count;
 
+    public Board() {}
+    public Board(int idx, String title, String content, String writer, String indate, int count) {
+        this.idx = idx;
+        this.title = title;
+        this.content = content;
+        this.writer = writer;
+        this.indate = indate;
+        this.count = count;
+
+    }
+
     public int getIdx(){
         return this.idx;
     }

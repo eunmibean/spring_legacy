@@ -26,19 +26,19 @@ public class BoardController {
     }
 
     @ResponseBody
-    @PostMapping("/board")
+    @PostMapping(value="/board", consumes = "application/json")
     public ResponseEntity<Void> insertBoard(@RequestBody Board board) {
-        System.out.println("insertBoard");
-        System.out.println(board);
+        System.out.println("Board: "+board);
         boardMapper.insertList(board);
         return ResponseEntity.ok().build();
     }
 
     @ResponseBody
-    @PutMapping(value = "/board/{idx}")
+    @PutMapping(value = "/board/{idx}", consumes = "application/json")
     public ResponseEntity<Void> updateList(@PathVariable("idx") int idx
                                           ,@RequestBody Board board
                                             ) {
+        System.out.println("Board: "+board);
         boardMapper.updateList(board);
         return ResponseEntity.ok().build();
     }
