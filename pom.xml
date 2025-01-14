@@ -129,6 +129,28 @@
       <version>2.9.0</version>
     </dependency>
 
+    <!-- Spring Security -->
+    <dependency>
+      <groupId>org.springframework.security</groupId>
+      <artifactId>spring-security-web</artifactId>
+      <version>5.3.5.RELEASE</version>
+    </dependency>
+    <dependency>
+      <groupId>org.springframework.security</groupId>
+      <artifactId>spring-security-config</artifactId>
+      <version>5.3.5.RELEASE</version>
+    </dependency>
+    <dependency>
+      <groupId>org.springframework.security</groupId>
+      <artifactId>spring-security-core</artifactId>
+      <version>5.3.5.RELEASE</version>
+    </dependency>
+    <!-- JSP에서 스프링 시큐리티와 관련된 태그 라이브러리 활용 -->
+    <dependency>
+      <groupId>org.springframework.security</groupId>
+      <artifactId>spring-security-taglibs</artifactId>
+      <version>5.3.5.RELEASE</version>
+    </dependency>
 
   </dependencies>
   <build>
