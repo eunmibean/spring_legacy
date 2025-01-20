@@ -4,11 +4,25 @@
        xmlns:security="http://www.springframework.org/schema/security"
        xsi:schemaLocation="http://www.springframework.org/schema/security http://www.springframework.org/schema/security/spring-security-5.3.xsd
 		http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
-    <security:http>
-        <security:intercept-url pattern="/boardList.do" access="hasRole('ROLE_USER')"/>
-<!--        <security:intercept-url pattern="/board/" access="hasRole('ROLE_USER')"/>-->
+    <security:http >
+        <security:csrf disabled="true"/>
+
+        <security:intercept-url pattern="/boardList.do" access="hasAnyRole('ADMIN', 'USER')"/>
+        <security:intercept-url pattern="/board/**" method="GET" access="hasAnyRole('ADMIN')" />
+        <security:intercept-url pattern="/board/**" method="POST" access="hasAnyRole('ADMIN', 'USER')" />
+        <security:intercept-url pattern="/board/**" method="PUT" access="hasAnyRole('ADMIN')" />
+        <security:intercept-url pattern="/board/**" method="DELETE" access="hasAnyRole('ADMIN')" />
+
+
+        <!--        <security:intercept-url pattern="/board/" access="hasRole('ROLE_USER')"/>-->
         <security:form-login/>
     </security:http>
     <security:authentication-manager>
+        <security:authentication-provider>
+            <security:user-service>
+                <security:user name="admin" password="{noop}admin" authorities="ROLE_ADMIN" />
+                <security:user name="user" password="{noop}user" authorities="ROLE_USER" />
+            </security:user-service>
+        </security:authentication-provider>
     </security:authentication-manager>
 </beans>
